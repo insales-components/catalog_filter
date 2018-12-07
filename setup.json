@@ -1,0 +1,50 @@
+{
+  "block_templates": {
+    "filter_color": {
+      "name": "Цвет в фильтре",
+      "block_fields": {
+        "image": {
+          "name": "Изображение",
+          "kind": "account_file"
+        },
+        "hex": {
+          "name": "Цвет в hex формате (#000000)",
+          "kind": "text"
+        }
+      }
+    }
+  },
+  "block_lists": {
+    "filter-colors": {
+      "title": "Цвет в фильтре",
+      "blocks": ["color-red", "color-blue", "color-black", "color-white"],
+      "block_template": "filter_color"
+    }
+  },
+  "blocks": {
+    "color-red": {
+      "title": "Красный",
+      "block_template": "filter_color",
+      "hex": "#ff0000",
+      "image": "no_image.png"
+    },
+    "color-blue": {
+      "title": "Cиний",
+      "block_template": "filter_color",
+      "hex": "#0000ff",
+      "image": "no_image.png"
+    },
+    "color-black": {
+      "title": "Черный",
+      "block_template": "filter_color",
+      "hex": "#000000",
+      "image": "no_image.png"
+    },
+    "color-white": {
+      "title": "Белый",
+      "block_template": "filter_color",
+      "hex": "#ffffff",
+      "image": "no_image.png"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{% assign form_submit = form_submit | default: true %}
+
+{% comment %}
+  filter_active - активность свойства/параметра
+  filters_active  - активность фильтра
+{% endcomment %}
+{% assign filter_active = false %}
+{% assign filters_active = false %}
+{% assign counter = 1 %}
+{% comment %}
+  open_until открывать до. Тоесть если указано 3 откроется 2.
+{% endcomment %}
+{% assign open_until = 3 %}
+{% comment %}
+  Открывать выбранные фильтры
+{% endcomment %}
+{% assign open_active_filter = true %}
+
+{% comment %}
+  open_properties, open_options - Открытые параметры и свойства по названию
+  {% assign open_properties = 'Вес|Габариты' | split: '|' %}
+  {% assign open_options = 'Размер|Цвет' | split: '|' %}
+{% endcomment %}
+{% assign open_properties = '' | split: '|' %}
+{% assign open_options = '' | split: '|' %}
+
+{% assign form_index = 'mask'%}
+
+<p>
+  <button type="button" class="bttn-prim" data-open-filter>
+    Открыть фильтр панелькой
+  </button>
+</p>
+
+<div class="collection-filter-header">
+  Фильтры
+</div>
+
+<form class="collection-filter" action="{{ collection.url }}" method="get" data-submit-onchange="{{ form_submit }}">
+
+    <!-- цена -->
+    {% include "get_collection_price", active_attr: 'data-active-filter' %}
+
+    {% include "get_class_filter", is_price: true %}
+
+    <div class="filter js-filter-section {{ class_filter[0] }}" {{ price_active }} data-tabs-container>
+      <div class="filter-title">
+        <span data-tab-anchor="price">
+          Цена
+        </span>
+
+        <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="price">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="price">
+        {% include "filter_range", range_type: 'price' %}
+      </div>
+    </div>
+    <!-- / цена -->
+
+    <!-- параметры -->
+    {% for property in collection.properties %}
+      {% assign counter = counter | plus: 1 %}
+
+      {% include "property_active", active_attr: 'data-active-filter' %}
+
+      {% include "get_class_filter" %}
+
+      <div class="filter js-filter-section {{ class_filter[0] }}" {{ property_active }} data-tabs-container>
+        <div class="filter-title" >
+          <span data-tab-anchor="{{ property.id }}">
+            {{ property.title }}
+          </span>
+
+          <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="{{ property.id }}">
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="{{ property.id }}">
+          {% if property.is_numeric? %}
+            {% include "filter_range", range_type: 'numeric' %}
+
+          {% elsif property.title == 'Цвет' %}
+            {% include "filter_inputs", filter_type: 'characteristics', input_type: 'color' %}
+
+          {% elsif property.title == 'Размер' %}
+            {% include "filter_inputs", filter_type: 'characteristics', input_type: 'span' %}
+
+          {% else %}
+            {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+          {% endif %}
+
+        </div>
+
+      </div>
+    {% endfor %}
+    <!-- / параметры -->
+
+  <!-- свойства -->
+  {% for option in collection.options %}
+    {% assign counter = counter | plus: 1 %}
+
+    {% include "option_active", active_attr: 'data-active-filter' %}
+
+    {% include "get_class_filter" %}
+
+    <div data-tabs-container class="filter js-filter-section {{ class_filter[0] }}" {{ option_active }}>
+
+      <div class="filter-title">
+        <span data-tab-anchor="{{ option.id }}">
+          {{ option.title }}
+        </span>
+
+        <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="{{ option.id }}">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="{{ option.id }}">
+        {% if option.title == 'Размер' %}
+          {% include "filter_inputs", filter_type: 'options', input_type: 'span' %}
+
+          {% elsif option.title == 'Цвет' %}
+          {% include "filter_inputs", filter_type: 'options', input_type: 'color' %}
+
+          {% else %}
+          {% include "filter_inputs", filter_type: 'options', input_type: 'checkbox' %}
+        {% endif %}
+      </div>
+
+    </div>
+  {% endfor %}
+  <!-- / свойства -->
+
+
+  {% unless form_submit %}
+    <button type="submit" class="filter-submit bttn-prim">Применить фильтр</button>
+  {% endunless %}
+
+  {% if order %}
+    <input type="hidden" name="order" value="{{ order }}" />
+  {% endif %}
+
+  {% if page_size %}
+    <input type="hidden" name="page_size" value="{{ page_size }}"/>
+  {% endif %}
+
+  {% if language.not_default? %}
+    <input type="hidden" name="lang" value="{{ language.locale }}"/>
+  {% endif %}
+
+  {% if search.query != '' %}
+    <input type="hidden" name="q" value="{{ search.query }}"/>
+  {% endif %}
+
+</form>
+{% if filters_active %}
+  <a href="{{ collection.url }}"  class="filters-clear bttn bttn-second in-filter">Сбросить фильтры</a>
+{% endif %}
+
+{% assign header = nil %}
+{% assign coll_min = nil %}
+{% assign coll_max = nil %}
+{% assign form_submit = nil %}
+{% assign counter = nil %}
+{% assign open_until = nil %}
+{% assign class_filter = nil %}
+{% assign open_active_filter = nil %}

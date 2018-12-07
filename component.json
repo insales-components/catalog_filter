@@ -1,0 +1,29 @@
+{
+  "name": "catalog_filter",
+  "version": "1.0.0",
+  "description": "Фильтр коллекции",
+  "author": "LiquidHub.ru",
+  "type": "snippets",
+  "homepage": "https://github.com/insales-components/catalog_filter",
+  "props": {
+    "common": true,
+    "liquid": true
+  },
+  "plugins": [
+    {
+      "name": "ion-rangeslider",
+      "files": [
+        "https://cdn.jsdelivr.net/npm/ion-rangeslider@2.2.0/js/ion.rangeSlider.min.js",
+        "https://cdn.jsdelivr.net/npm/ion-rangeslider@2.2.0/css/ion.rangeSlider.css",
+        "https://cdn.jsdelivr.net/npm/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css",
+        "https://cdn.jsdelivr.net/npm/ion-rangeslider@2.2.0/img/sprite-skin-nice.png"
+      ]
+    },
+    {
+      "name": "plugin-ionRange-adapter",
+      "files": [
+        "https://cdn.jsdelivr.net/gh/VladimirIvanin/ionRange.insales@1.0/dist/plugin.ionRange.adapter.js"
+      ]
+    }
+  ]
+}

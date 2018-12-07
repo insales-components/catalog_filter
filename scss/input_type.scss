@@ -1,0 +1,52 @@
+$color-link-primary: #144184 !default;
+$color-border-primary: #cccccc !default;
+
+.filter-items-list.is-span .filter-item,
+.filter-items-list.is-color .filter-item {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.filter-span {
+  vertical-align: top;
+}
+
+.filter-span-control {
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid $color-border-primary;
+  padding: 5px;
+  min-width: 30px;
+  text-align: center;
+}
+
+input[type="checkbox"]:checked + .filter-span-control {
+  border-color: $color-link-primary;
+}
+
+.filter-color {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 7px;
+  margin-right: 2px;
+  border-radius: 50%;
+  border: none;
+}
+
+.filter-color[title="белый"],
+.filter-color[title="Прозрачный"],
+.filter-color[title="Белый"] {
+  border: 1px solid $color-border-primary;
+}
+
+input[type="checkbox"]:checked + .filter-color,
+input[type="checkbox"]:checked + .filter-color[title="Белый"],
+input[type="checkbox"]:checked + .filter-color[title="Прозрачный"],
+input[type="checkbox"]:checked + .filter-color[title="белый"] {
+  border: 1px solid $color-link-primary;
+}

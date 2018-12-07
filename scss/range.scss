@@ -1,0 +1,37 @@
+$color-link-primary: #144184 !default;
+$color-link-secondary: #f65050 !default;
+$color-border-primary: #cccccc !default;
+
+.collection-filter .range-slider input {
+  height: 50px;
+  border: 1px solid #c9c9c9;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+.collection-filter .range-slider .irs-slider.from, .collection-filter .range-slider .irs-slider.to {
+  background: $color-link-primary;
+  width: 17px;
+  height: 15px;
+  top: 26px;
+}
+
+.collection-filter .range-slider .irs {
+  height: 48px;
+}
+
+.collection-filter .range-slider .irs-bar {
+  height: 4px;
+  top: 26px;
+  background: $color-link-primary;
+}
+
+.collection-filter .range-slider .irs-line {
+  height: 4px;
+  top: 26px;
+}
+
+.collection-filter .range-slider .irs-line-mid, .collection-filter .range-slider .irs-line-left, .collection-filter .range-slider .irs-line-right {
+  height: 4px;
+  background: $color-link-secondary;
+}
