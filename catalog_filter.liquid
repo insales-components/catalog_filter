@@ -27,7 +27,7 @@
 {% assign form_index = 'mask'%}
 
 <p>
-  <button type="button" class="bttn-prim" data-open-filter>
+  <button type="button" class="btn-primary" data-open-filter>
     Открыть фильтр панелькой
   </button>
 </p>
@@ -136,7 +136,7 @@
 
 
   {% unless form_submit %}
-    <button type="submit" class="filter-submit bttn-prim">Применить фильтр</button>
+    <button type="submit" class="filter-submit btn-primary">Применить фильтр</button>
   {% endunless %}
 
   {% if order %}
@@ -157,7 +157,7 @@
 
 </form>
 {% if filters_active %}
-  <a href="{{ collection.url }}"  class="filters-clear bttn bttn-second in-filter">Сбросить фильтры</a>
+  <a href="{{ collection.url }}"  class="filters-clear bttn btn-secondary in-filter">Сбросить фильтры</a>
 {% endif %}
 
 {% assign header = nil %}
