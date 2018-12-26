@@ -26,12 +26,6 @@
 
 {% assign form_index = 'mask'%}
 
-<p>
-  <button type="button" class="btn-primary" data-open-filter>
-    Открыть фильтр панелькой
-  </button>
-</p>
-
 <div class="collection-filter-header">
   Фильтры
 </div>
@@ -50,7 +44,7 @@
         </span>
 
         <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="price">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <i class="ui-icon-arr-down" aria-hidden="true"></i>
         </button>
       </div>
       <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="price">
@@ -74,7 +68,7 @@
           </span>
 
           <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="{{ property.id }}">
-            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            <i class="ui-icon-arr-down" aria-hidden="true"></i>
           </button>
         </div>
 
@@ -114,7 +108,7 @@
         </span>
 
         <button class="filter-toggle {{ class_filter[1] }}" type="button" data-tab-anchor="{{ option.id }}">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <i class="ui-icon-arr-down" aria-hidden="true"></i>
         </button>
       </div>
 
