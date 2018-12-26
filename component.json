@@ -27,6 +27,7 @@
     }
   ],
   "dependencies": {
+    "ui-icons": "https://github.com/insales-components/ui-icons",
     "scss_variables": "https://github.com/insales-components/scss_variables"
   }
 }
