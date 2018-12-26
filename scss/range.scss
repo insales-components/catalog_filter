@@ -1,7 +1,3 @@
-$color-link-primary: #144184 !default;
-$color-link-secondary: #f65050 !default;
-$color-border-primary: #cccccc !default;
-
 .collection-filter .range-slider input {
   height: 50px;
   border: 1px solid #c9c9c9;
@@ -11,9 +7,10 @@ $color-border-primary: #cccccc !default;
 
 .collection-filter .range-slider .irs-slider.from, .collection-filter .range-slider .irs-slider.to {
   background: $color-link-primary;
-  width: 17px;
-  height: 15px;
-  top: 26px;
+  width: 16px;
+  height: 16px;
+  top: 20px;
+  border-radius: 50%;
 }
 
 .collection-filter .range-slider .irs {

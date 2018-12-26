@@ -25,5 +25,8 @@
         "https://cdn.jsdelivr.net/gh/VladimirIvanin/ionRange.insales@1.0/dist/plugin.ionRange.adapter.js"
       ]
     }
-  ]
+  ],
+  "dependencies": {
+    "scss_variables": "https://github.com/insales-components/scss_variables"
+  }
 }
