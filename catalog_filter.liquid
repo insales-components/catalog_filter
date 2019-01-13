@@ -48,7 +48,10 @@
         </button>
       </div>
       <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="price">
-        {% include "filter_range", range_type: 'price' %}
+        {% comment %}
+          {% include "filter_range", range_type: 'price', use_row: true, ranges_str: 5, hide_price_range: true, ranges_prefix: 'от ', ranges_postfix: 'до ', ranges_unit: ' руб.' %}
+        {% endcomment %}
+        {% include "filter_range", range_type: 'price', use_row: false %}
       </div>
     </div>
     <!-- / цена -->
@@ -74,6 +77,13 @@
 
         <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="{{ property.id }}">
           {% if property.is_numeric? %}
+            {% comment %}
+            {% if property.title == 'Продолжительность' %}
+              {% include "filter_range", range_type: 'numeric', use_row: true, ranges_str: 5, hide_range: true, ranges_prefix: 'от ', ranges_postfix: 'до ', ranges_unit: ' сек.' %}
+              {% else %}
+              {% include "filter_range", range_type: 'numeric' %}
+            {% endif %}
+            {% endcomment %}
             {% include "filter_range", range_type: 'numeric' %}
 
           {% elsif property.title == 'Цвет' %}

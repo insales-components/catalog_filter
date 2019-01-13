@@ -140,8 +140,18 @@ function filter_range(selector) {
             type: 'hidden'
           }));
       }
-      $('[name="'+minItem+'"]').val(range.min).attr('disabled', false).prop('disabled', false);
-      $('[name="'+maxItem+'"]').val(range.max).attr('disabled', false).prop('disabled', false);
+      if (range.active) {
+        $('[name="'+minItem+'"]').val('').attr('disabled', false).prop('disabled', false);
+      }else {
+        $('[name="'+minItem+'"]').val(range.min).attr('disabled', false).prop('disabled', false);
+      }
+
+      if (range.active) {
+        $('[name="'+maxItem+'"]').val('').attr('disabled', false).prop('disabled', false);
+      }else {
+        $('[name="'+maxItem+'"]').val(range.max).attr('disabled', false).prop('disabled', false);
+      }
+
       $('[name="'+minItem+'"]').trigger('change');
       $('[name="'+maxItem+'"]').trigger('change');
     }
