@@ -1,6 +1,12 @@
 {% if range_type == 'price' %}
-
+{% assign use_row = use_row | default: false %}
+{% assign hide_price_range = hide_price_range | default: false %}
+{% assign ranges_str = ranges_str | default: 3 %}
+{% assign ranges_prefix = ranges_prefix | default: false %}
+{% assign ranges_postfix = ranges_postfix | default: false %}
+{% assign ranges_unit = ranges_unit | default: false %}
 <div class="filter-body range-slider js-filter-range-slider-price">
+  {% unless hide_price_range %}
   <input hidden type="text" class="js-filter-range-placeholder"
     data-min="{{ coll_min }}"
     data-max="{{ coll_max }}"
@@ -27,12 +33,39 @@
       {% if coll_max == price_max %}disabled{% endif %}/>
     </div>
   </div>
+  {% endunless %}
+
+  {% if use_row %}
+  <div
+    class="filter-ranges js-filter-ranges"
+    data-filter-ranges-property-id="price"
+    {% if ranges_prefix %}
+    data-filter-ranges-prefix="{{ ranges_prefix }}"
+    {% endif %}
+    {% if ranges_postfix %}
+    data-filter-ranges-prefix="{{ ranges_postfix }}"
+    {% endif %}
+    {% if ranges_unit %}
+    data-filter-ranges-unit="{{ ranges_unit }}"
+    {% endif %}
+    data-filter-ranges-min="{{ coll_min }}"
+    data-filter-ranges-max="{{ coll_max }}"
+    data-filter-ranges-from="{{ price_min }}"
+    data-filter-ranges-to="{{ price_max }}"
+    data-filter-ranges-str="{{ ranges_str }}"
+    ></div>
+  {% endif %}
+
 </div>
 
 {% endif %}
 
 
 {% if range_type == 'numeric' %}
+
+{% assign hide_range = hide_range | default: false %}
+{% assign use_row = use_row | default: false %}
+{% assign ranges_str = ranges_str | default: 3 %}
 
 {% assign min_val = property.characteristics.first.name | round: 0 %}
 {% assign max_val = property.characteristics.first.name | round: 0 %}
@@ -70,6 +103,7 @@
 {% endif %}
 
 <div class="filter-body range-slider js-filter-range-slider">
+  {% unless hide_range %}
   <input type="text" hidden class="js-filter-range-placeholder"
     data-min="{{ min_val }}"
     data-max="{{ max_val }}"
@@ -96,7 +130,33 @@
       {% if max_val == end %}disabled{% endif %}/>
     </div>
   </div>
+  {% endunless %}
+
+
+  {% if use_row %}
+  <div
+    class="filter-ranges js-filter-ranges"
+    data-filter-ranges-property-id="{{ property.id }}"
+    {% if ranges_prefix %}
+    data-filter-ranges-prefix="{{ ranges_prefix }}"
+    {% endif %}
+    {% if ranges_postfix %}
+    data-filter-ranges-prefix="{{ ranges_postfix }}"
+    {% endif %}
+    {% if ranges_unit %}
+    data-filter-ranges-unit="{{ ranges_unit }}"
+    {% endif %}
+    data-filter-ranges-min="{{ min_val }}"
+    data-filter-ranges-max="{{ max_val }}"
+    data-filter-ranges-from="{{ start }}"
+    data-filter-ranges-to="{{ end }}"
+    data-filter-ranges-str="{{ ranges_str }}"
+    ></div>
+  {% endif %}
+
 </div>
 {% endif %}
+
+
 
 {% assign range_type = nil %}
