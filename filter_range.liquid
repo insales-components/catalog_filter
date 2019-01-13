@@ -1,12 +1,15 @@
-{% if range_type == 'price' %}
-{% assign use_row = use_row | default: false %}
-{% assign hide_price_range = hide_price_range | default: false %}
-{% assign ranges_str = ranges_str | default: 3 %}
-{% assign ranges_prefix = ranges_prefix | default: false %}
-{% assign ranges_postfix = ranges_postfix | default: false %}
-{% assign ranges_unit = ranges_unit | default: false %}
+{%- if range_type == 'price' -%}
+{%- comment -%}
+  {%- include "filter_range", range_type: 'price', use_row: true, ranges_str: 5, hide_price_range: true, ranges_prefix: 'от ', ranges_postfix: 'до ', ranges_unit: ' руб.' -%}
+{%- endcomment -%}
+{%- assign use_row = use_row | default: false -%}
+{%- assign hide_price_range = hide_price_range | default: false -%}
+{%- assign ranges_str = ranges_str | default: 3 -%}
+{%- assign ranges_prefix = ranges_prefix | default: false -%}
+{%- assign ranges_postfix = ranges_postfix | default: false -%}
+{%- assign ranges_unit = ranges_unit | default: false -%}
 <div class="filter-body range-slider js-filter-range-slider-price">
-  {% unless hide_price_range %}
+  {%- unless hide_price_range -%}
   <input hidden type="text" class="js-filter-range-placeholder"
     data-min="{{ coll_min }}"
     data-max="{{ coll_max }}"
@@ -20,7 +23,7 @@
       placeholder="{{ coll_min }}"
       value="{{ price_min }}"
       data-range-from
-      {% if coll_min == price_min %}disabled{% endif %}
+      {%- if coll_min == price_min -%}disabled{%- endif -%}
       />
     </div>
 
@@ -30,80 +33,90 @@
       placeholder="{{ coll_max }}"
       value="{{ price_max }}"
       data-range-to
-      {% if coll_max == price_max %}disabled{% endif %}/>
+      {%- if coll_max == price_max -%}disabled{%- endif -%}/>
     </div>
   </div>
-  {% endunless %}
+  {%- endunless -%}
 
-  {% if use_row %}
+  {%- if use_row -%}
   <div
     class="filter-ranges js-filter-ranges"
     data-filter-ranges-property-id="price"
-    {% if ranges_prefix %}
+    {%- if ranges_prefix -%}
     data-filter-ranges-prefix="{{ ranges_prefix }}"
-    {% endif %}
-    {% if ranges_postfix %}
+    {%- endif -%}
+    {%- if ranges_postfix -%}
     data-filter-ranges-postfix="{{ ranges_postfix }}"
-    {% endif %}
-    {% if ranges_unit %}
+    {%- endif -%}
+    {%- if ranges_unit -%}
     data-filter-ranges-unit="{{ ranges_unit }}"
-    {% endif %}
+    {%- endif -%}
     data-filter-ranges-min="{{ coll_min }}"
     data-filter-ranges-max="{{ coll_max }}"
     data-filter-ranges-from="{{ price_min }}"
     data-filter-ranges-to="{{ price_max }}"
     data-filter-ranges-str="{{ ranges_str }}"
     ></div>
-  {% endif %}
+  {%- endif -%}
 
 </div>
 
-{% endif %}
+{%- endif -%}
 
 
-{% if range_type == 'numeric' %}
+{%- if range_type == 'numeric' -%}
+{%- comment -%}
+{%- if property.title == 'Продолжительность' -%}
+  {%- include "filter_range", range_type: 'numeric', use_row: true, ranges_str: 5, hide_range: true, ranges_prefix: 'от ', ranges_postfix: 'до ', ranges_unit: ' сек.' -%}
+  {%- else -%}
+  {%- include "filter_range", range_type: 'numeric' -%}
+{%- endif -%}
 
-{% assign hide_range = hide_range | default: false %}
-{% assign use_row = use_row | default: false %}
-{% assign ranges_str = ranges_str | default: 3 %}
+или так
 
-{% assign min_val = property.characteristics.first.name | round: 0 %}
-{% assign max_val = property.characteristics.first.name | round: 0 %}
+{%- include "filter_range", range_type: 'numeric', use_row: true, ranges_str: 5, hide_range: true -%}
+{%- endcomment -%}
+{%- assign hide_range = hide_range | default: false -%}
+{%- assign use_row = use_row | default: false -%}
+{%- assign ranges_str = ranges_str | default: 3 -%}
 
-{% for characteristic in property.characteristics %}
-  {% assign val = characteristic.name | round: 0 %}
-  {% if val < min_val %}
-    {% assign min_val = val %}
-  {% endif %}
+{%- assign min_val = property.characteristics.first.name | round: 0 -%}
+{%- assign max_val = property.characteristics.first.name | round: 0 -%}
 
-  {% if val > max_val %}
-    {% assign max_val = val %}
-  {% endif %}
-{% endfor %}
+{%- for characteristic in property.characteristics -%}
+  {%- assign val = characteristic.name | round: 0 -%}
+  {%- if val < min_val -%}
+    {%- assign min_val = val -%}
+  {%- endif -%}
 
-{% if property.gt_value %}
-  {% assign start = property.gt_value %}
-  {% assign filter_active = true %}
-  {% assign filters_active = true %}
-{% else %}
-  {% assign start = min_val %}
-{% endif %}
+  {%- if val > max_val -%}
+    {%- assign max_val = val -%}
+  {%- endif -%}
+{%- endfor -%}
 
-{% if property.lt_value %}
-  {% assign end = property.lt_value %}
-  {% assign filter_active = true %}
-  {% assign filters_active = true %}
-{% else %}
-  {% assign end = max_val %}
-{% endif %}
+{%- if property.gt_value -%}
+  {%- assign start = property.gt_value -%}
+  {%- assign filter_active = true -%}
+  {%- assign filters_active = true -%}
+{%- else -%}
+  {%- assign start = min_val -%}
+{%- endif -%}
 
-{% if characteristic.current? %}
-  {% assign filter_active = true %}
-  {% assign filters_active = true %}
-{% endif %}
+{%- if property.lt_value -%}
+  {%- assign end = property.lt_value -%}
+  {%- assign filter_active = true -%}
+  {%- assign filters_active = true -%}
+{%- else -%}
+  {%- assign end = max_val -%}
+{%- endif -%}
+
+{%- if characteristic.current? -%}
+  {%- assign filter_active = true -%}
+  {%- assign filters_active = true -%}
+{%- endif -%}
 
 <div class="filter-body range-slider js-filter-range-slider">
-  {% unless hide_range %}
+  {%- unless hide_range -%}
   <input type="text" hidden class="js-filter-range-placeholder"
     data-min="{{ min_val }}"
     data-max="{{ max_val }}"
@@ -117,7 +130,7 @@
       placeholder="{{ min_val }}"
       value="{{ start }}"
       data-range-from
-      {% if min_val == start %}disabled{% endif %}
+      {%- if min_val == start -%}disabled{%- endif -%}
       />
     </div>
 
@@ -127,36 +140,36 @@
       placeholder="{{ max_val }}"
       value="{{ end }}"
       data-range-to
-      {% if max_val == end %}disabled{% endif %}/>
+      {%- if max_val == end -%}disabled{%- endif -%}/>
     </div>
   </div>
-  {% endunless %}
+  {%- endunless -%}
 
 
-  {% if use_row %}
+  {%- if use_row -%}
   <div
     class="filter-ranges js-filter-ranges"
     data-filter-ranges-property-id="{{ property.id }}"
-    {% if ranges_prefix %}
+    {%- if ranges_prefix -%}
     data-filter-ranges-prefix="{{ ranges_prefix }}"
-    {% endif %}
-    {% if ranges_postfix %}
+    {%- endif -%}
+    {%- if ranges_postfix -%}
     data-filter-ranges-postfix="{{ ranges_postfix }}"
-    {% endif %}
-    {% if ranges_unit %}
+    {%- endif -%}
+    {%- if ranges_unit -%}
     data-filter-ranges-unit="{{ ranges_unit }}"
-    {% endif %}
+    {%- endif -%}
     data-filter-ranges-min="{{ min_val }}"
     data-filter-ranges-max="{{ max_val }}"
     data-filter-ranges-from="{{ start }}"
     data-filter-ranges-to="{{ end }}"
     data-filter-ranges-str="{{ ranges_str }}"
     ></div>
-  {% endif %}
+  {%- endif -%}
 
 </div>
-{% endif %}
+{%- endif -%}
 
 
 
-{% assign range_type = nil %}
+{%- assign range_type = nil -%}

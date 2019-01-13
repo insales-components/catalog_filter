@@ -87,9 +87,10 @@ function filter_range(selector) {
 
                 triggerChange(this)
               })
-             .append($('<label>', {class: 'chkbx-label'}));
+             .append();
+    var $label = $('<label>', {class: 'chkbx-label'});
 
-    $chkbx.append(
+    $label.append(
       $('<input>', {class: 'chkbx', type: 'checkbox', checked: range.active})
       .on('click checked', function () {
         event.preventDefault();
@@ -98,7 +99,7 @@ function filter_range(selector) {
       })
 
     );
-    $chkbx.append($('<span>', {class: 'chkbx-control'}));
+    $label.append($('<span>', {class: 'chkbx-control'}));
     var minText = '';
     var maxText = '';
     if (prefix) {
@@ -115,7 +116,7 @@ function filter_range(selector) {
       minText += unit;
       maxText += unit;
     }
-    $chkbx.append($('<span>', {
+    $label.append($('<span>', {
       text: minText + ' '+delimiter+' ' + maxText
     }));
 
@@ -156,7 +157,7 @@ function filter_range(selector) {
       $('[name="'+maxItem+'"]').trigger('change');
     }
 
-    return $chkbx;
+    return $chkbx.append($label);
   }
 
   function isFloat(n){
